@@ -143,6 +143,24 @@
       </div>
     </div>
   </div>
-  <script src="script.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+  window.FirebaseInit = () => {
+    const firebaseConfig = {
+      apiKey: "AIzaSyAXz5odCHUE3-guCR-a3KcxWYINK2fgZD4",
+      authDomain: "ewtiers.firebaseapp.com",
+      projectId: "ewtiers",
+      storageBucket: "ewtiers.appspot.com",
+      messagingSenderId: "3653761892",
+      appId: "1:3653761892:web:432b3b7922fd693c291871",
+      measurementId: "G-Z5JF67WQ8K"
+    };
+    const app = initializeApp(firebaseConfig);
+    window.db = getFirestore(app);
+  }
+  window.FirebaseInit();
+</script>
+<script src="script.js"></script>
 </body>
 </html>
