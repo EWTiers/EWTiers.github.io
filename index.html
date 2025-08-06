@@ -145,6 +145,7 @@
   </div>
 <script type="module">
 
+// --- FIREBASE SDK ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
@@ -160,6 +161,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// --- ADMIN AUTH ---
 const ADMIN_PASSWORD_HASH = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9";
 let isAdmin = false;
 if (localStorage.getItem('isAdmin') === '1') isAdmin = true;
@@ -167,6 +169,7 @@ let currentTab = 'kitpvp';
 
 let draggedName = null, draggedFromTier = null, draggedType = null, draggedId = null;
 
+// --- UI ---
 function updateAddForms() {
   document.getElementById('kitpvp-form').style.display = isAdmin ? '' : 'none';
   document.getElementById('nezerpot-form').style.display = isAdmin ? '' : 'none';
@@ -184,51 +187,12 @@ function switchGameTab(tab) {
   document.getElementById(currentTab + '-btn').classList.remove('active');
   document.getElementById('tierlist-' + tab).classList.add('active');
   currentTab = tab;
+  // render через subscribe
 }
 window.switchGameTab = switchGameTab;
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAXz5odCHUE3-guCR-a3KcxWYINK2fgZD4",
-  authDomain: "ewtiers.firebaseapp.com",
-  projectId: "ewtiers",
-  storageBucket: "ewtiers.appspot.com",
-  messagingSenderId: "3653761892",
-  appId: "1:3653761892:web:432b3b7922fd693c291871",
-  measurementId: "G-Z5JF67WQ8K"
-};
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const ADMIN_PASSWORD_HASH = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9";
-let isAdmin = false;
-if (localStorage.getItem('isAdmin') === '1') isAdmin = true;
-let currentTab = 'kitpvp';
-
-let draggedName = null, draggedFromTier = null, draggedType = null, draggedId = null;
-
-function updateAddForms() {
-  document.getElementById('kitpvp-form').style.display = isAdmin ? '' : 'none';
-  document.getElementById('nezerpot-form').style.display = isAdmin ? '' : 'none';
-}
-function updateAuthUI() {
-  document.getElementById('auth-indicator').innerHTML =
-    isAdmin ? '<span class="dot" style="background:#4ecdc4"></span> Админ' : '<span class="dot"></span> Гость';
-  document.getElementById('auth-btn').textContent = isAdmin ? 'Выйти' : 'Войти';
-  document.getElementById('auth-btn').onclick = isAdmin ? logout : showAuthModal;
-}
-function switchGameTab(tab) {
-  if(tab === currentTab) return;
-  document.getElementById('tierlist-' + currentTab).classList.remove('active');
-  document.getElementById(tab + '-btn').classList.add('active');
-  document.getElementById(currentTab + '-btn').classList.remove('active');
-  document.getElementById('tierlist-' + tab).classList.add('active');
-  currentTab = tab;
-}
-window.switchGameTab = switchGameTab;
-
+// --- FIRESTORE ---
+// Подписаться на игроков + слушать изменения
 function subscribePlayers(tab, callback) {
   onSnapshot(collection(db, tab), (snapshot) => {
     let obj = {1:[],2:[],3:[],4:[],5:[]};
@@ -246,6 +210,7 @@ async function deletePlayerFromBase(tab, id) {
   await deleteDoc(doc(db, tab, id));
 }
 
+// --- РЕНДЕР ---
 function render(tab, playersTab) {
   for(let tier=1;tier<=5;tier++) {
     let pArr = playersTab[tier] || [];
@@ -263,6 +228,7 @@ function render(tab, playersTab) {
   document.body.classList.toggle('admin-mode', isAdmin);
 }
 
+// --- DND + удаление через Firebase ---
 function enableDnD(tab, playersTab) {
   let droppedInTier = false;
   document.querySelectorAll('.player').forEach(playerEl => {
@@ -346,6 +312,7 @@ function disableDnDForGuests() {
   }
 }
 
+// --- добавление игрока ---
 window.addPlayer = function(tab) {
   if (!isAdmin) return;
   let name = document.getElementById(tab+'-player-name').value.trim();
@@ -356,6 +323,7 @@ window.addPlayer = function(tab) {
   document.getElementById(tab+'-player-name').value = '';
 };
 
+// --- авторизация + логаут ---
 window.checkPassword = async function() {
   const pass = document.getElementById('auth-password').value;
   const hash = await hashPassword(pass);
@@ -398,6 +366,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+// --- subscribe ---
 document.addEventListener('DOMContentLoaded', function() {
   subscribePlayers('kitpvp', function(playersKitpvp) {
     if (currentTab === 'kitpvp') render('kitpvp', playersKitpvp);
@@ -425,4 +394,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
-
