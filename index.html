@@ -12,6 +12,143 @@
     }
     .game-tab-content { display:none; }
     .game-tab-content.active { display:block; }
+    /** INFO BUTTON + PANEL **/
+    .sidebar-info-btn {
+      position: fixed;
+      top: 90px;
+      left: 17px;
+      z-index: 1200;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: #22304ae0;
+      color: #fac063;
+      font-size: 2.6em;
+      font-family: 'Arial Black', Arial, sans-serif;
+      text-align: center;
+      line-height: 52px;
+      letter-spacing: 0.04em;
+      box-shadow: 0 2px 14px #4ecdc488;
+      cursor: pointer;
+      transition: background 0.15s, color 0.22s, box-shadow 0.18s, transform 0.18s;
+      border: 2px solid #4ecdc4cc;
+      font-weight: bold;
+    }
+    .sidebar-info-btn:hover {
+      background: #4ecdc4e0;
+      color: #22304a;
+      box-shadow: 0 7px 25px #fac06355;
+      transform: scale(1.09) rotate(-3deg);
+      border-color: #fac063;
+    }
+    .sidebar-info-panel {
+      position: fixed;
+      top: 76px;
+      left: 18px;
+      width: 340px;
+      max-width: 90vw;
+      background: rgba(25,26,46,0.98);
+      color: #fff;
+      border-radius: 18px;
+      border: 2.5px solid #4ecdc4;
+      box-shadow: 0 8px 35px #162b4a70;
+      padding: 24px 25px 18px 25px;
+      z-index: 1300;
+      display: none;
+      font-size: 1.15em;
+      animation: fadeIn .23s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px);}
+      to { opacity: 1;  transform: none;}
+    }
+    .info-panel-header {
+      font-weight: bold;
+      font-size: 1.19em;
+      margin-bottom: 8px;
+      display: flex; justify-content: space-between; align-items:center;
+    }
+    .close-info-btn {
+      background: none;
+      border: none;
+      color: #ed7a7a;
+      font-size: 1.65em;
+      cursor: pointer;
+      margin-left: 14px;
+      font-weight: bold;
+      transition: color 0.18s;
+    }
+    .close-info-btn:hover { color: #ff5252; }
+    .ht-demo, .lt-demo {
+      display: inline-block;
+      font-weight: bold;
+      padding: 2px 13px 2px 13px;
+      border-radius: 13px;
+      margin: 1px 8px 0 2px;
+      font-size: 1em;
+    }
+    .ht-demo {
+      background: linear-gradient(90deg, #00e1ff 0%, #0072ff 100%);
+      color: #fff; border: 2px solid #00e1ff;
+    }
+    .lt-demo {
+      background: linear-gradient(90deg, #ffb347 0%, #ff5e62 100%);
+      color: #fff; border: 2px solid #ffb347;
+    }
+    /* -------- Copyright & Счётчик -------- */
+    .copyright {
+      position: fixed;
+      bottom: 20px;
+      right: 30px;
+      font-size: 0.93rem;
+      color: #aeb3d3;
+      background: rgba(34, 48, 74, 0.8);
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: 1px solid rgba(78, 205, 196, 0.3);
+      backdrop-filter: blur(10px);
+      font-weight: 500;
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+    .copyright:hover {
+      color: #4ecdc4;
+      border-color: #4ecdc4;
+      box-shadow: 0 4px 15px rgba(78, 205, 196, 0.2);
+    }
+    .visitor-counter {
+      position: fixed;
+      bottom: 20px;
+      left: 30px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 48, 74, 0.8);
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: 1px solid rgba(78, 205, 196, 0.3);
+      backdrop-filter: blur(10px);
+      color: #aeb3d3;
+      font-size: 0.93rem;
+      font-weight: 500;
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+    .visitor-counter:hover {
+      color: #4ecdc4;
+      border-color: #4ecdc4;
+      box-shadow: 0 4px 15px rgba(78, 205, 196, 0.2);
+    }
+    .visitor-icon {
+      font-size: 1.1em;
+    }
+    #visitor-count {
+      font-weight: bold;
+      color: #4ecdc4;
+      transition: transform 0.2s ease;
+    }
+    .visitor-counter:hover #visitor-count {
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
@@ -29,6 +166,39 @@
       <button id="auth-enter-btn" onclick="checkPassword()">Войти</button>
       <div id="auth-error" class="error-message"></div>
     </div>
+  </div>
+
+  <!-- INFO BUTTON & PANEL (ВНЕ container!) -->
+  <div class="sidebar-info-btn" id="show-info-btn" title="Информация">!</div>
+  <div class="sidebar-info-panel" id="info-panel">
+    <div class="info-panel-content">
+      <div class="info-panel-header">
+        <span>Что такое ТирТест?</span>
+        <button id="close-info-btn" class="close-info-btn">&times;</button>
+      </div>
+      <p><b>ТирТест</b> — это система оценки силы игроков на сервере.<br>
+      Чем выше тир, тем сильнее и опытнее игрок.</p>
+      <ul>
+        <li><b>Тир 1</b> — Топовые игроки</li>
+        <li><b>Тир 2–4</b> — Средние игроки</li>
+        <li><b>Тир 5</b> — Новички и самые низкие по уровню</li>
+      </ul>
+      <p>
+        <b>Тип ника:</b><br>
+        <span class="ht-demo">HT</span> — <b>HT (High Tier)</b>, сильнее большинства игроков.<br>
+        <span class="lt-demo">LT</span> — <b>LT (Low Tier)</b>, более слабый игрок.<br>
+      </p>
+      <p style="margin-top:18px">
+        ТирТест позволяет быстро понять, игрок силён, а так же следить за личным прогрессом.
+      </p>
+    </div>
+  </div>
+  <div class="copyright">
+    ©️ EzCargo, 2025
+  </div>
+  <div class="visitor-counter">
+    <span class="visitor-icon">👁️</span>
+    <span id="visitor-count">0</span>
   </div>
 
   <div class="container">
@@ -136,12 +306,10 @@ function switchGameTab(tab) {
   if (tab === 'kitpvp') render('kitpvp', playersKitpvpLast);
   else if (tab === 'nezerpot') render('nezerpot', playersNezerpotLast);
 }
-
 window.switchGameTab = switchGameTab;
 
 function subscribePlayers(tab, callback) {
   onSnapshot(collection(db, tab), (snapshot) => {
-    console.log('[firestore] subscribe snapshot for tab:', tab, 'size:', snapshot.size);
     let obj = {"1":[], "2":[], "3":[], "4":[], "5":[]};
     snapshot.forEach(docSnap => {
       const d = docSnap.data();
@@ -149,11 +317,9 @@ function subscribePlayers(tab, callback) {
       obj[t] && obj[t].push({name:d.name, type:d.type, id:docSnap.id});
     });
     let playersByTier = [undefined, obj["1"], obj["2"], obj["3"], obj["4"], obj["5"]];
-    console.log('[firestore] result by tier', tab, playersByTier);
     callback(playersByTier);
   });
 }
-
 async function addPlayerToBase(tab, name, tier, type) {
   await addDoc(collection(db, tab), { name, tier, type });
 }
@@ -163,9 +329,12 @@ async function deletePlayerFromBase(tab, id) {
 function render(tab, playersTab) {
   for(let tier=1;tier<=5;tier++) {
     let pArr = playersTab[tier] || [];
-    pArr = pArr.filter(p => p && p.name);
-    pArr.sort((a,b) => (a.type === b.type) ? 0 : (a.type === 'high' ? -1 : 1));
-    document.getElementById(tab + '-tier' + tier).innerHTML = pArr
+    // СОРТИРОВКА: Сначала HT, потом LT, потом по имени
+    let sortedArr = (pArr || []).filter(p => p && p.name).sort((a, b) => {
+      if (a.type !== b.type) return a.type === 'high' ? -1 : 1;
+      return a.name.localeCompare(b.name, 'ru', {sensitivity: 'base'});
+    });
+    document.getElementById(tab + '-tier' + tier).innerHTML = sortedArr
     .map(p =>
       `<div class="player ${p.type}-tier" draggable="${isAdmin}" data-name="${p.name}" data-type="${p.type}" data-id="${p.id}" >
         ${p.type === 'high' ? 'HT' : 'LT'} | ${p.name}
@@ -319,7 +488,6 @@ document.addEventListener('DOMContentLoaded', function() {
     playersNezerpotLast = playersNezerpot;
     if (currentTab === 'nezerpot') render('nezerpot', playersNezerpot);
   });
-
   const address = document.getElementById('copy-address');
   if(address) {
     address.addEventListener('click', function() {
@@ -328,6 +496,36 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => address.textContent = "play.envyworld.gg", 1200);
     });
   }
+  // Инфо-панель
+  const infoBtn = document.getElementById('show-info-btn');
+  const infoPanel = document.getElementById('info-panel');
+  const closeBtn = document.getElementById('close-info-btn');
+  if (infoBtn && infoPanel && closeBtn) {
+    infoBtn.onclick = () => { infoPanel.style.display = 'block'; };
+    closeBtn.onclick = () => { infoPanel.style.display = 'none'; };
+    document.addEventListener('click', function(e) {
+      if (infoPanel.style.display === 'block' &&
+          !infoPanel.contains(e.target) &&
+          e.target !== infoBtn) {
+        infoPanel.style.display = 'none';
+      }
+    });
+  }
+  // Счетчик посетителей
+  function initVisitorCounter() {
+    const hasVisited = sessionStorage.getItem('hasVisited');
+    if (!hasVisited) {
+      sessionStorage.setItem('hasVisited', 'true');
+      addDoc(collection(db, 'visitors'), {
+        timestamp: new Date(),
+        userAgent: navigator.userAgent.substring(0, 100)
+      }).catch(console.error);
+    }
+    onSnapshot(collection(db, 'visitors'), (snapshot) => {
+      document.getElementById('visitor-count').textContent = snapshot.size;
+    });
+  }
+  initVisitorCounter();
   document.body.addEventListener('click', function(e) {
     if (e.target.classList.contains('player')) {
       const name = e.target.getAttribute('data-name');
@@ -337,8 +535,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
-
 </script>
 </body>
 </html>
-
