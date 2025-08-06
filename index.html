@@ -9,7 +9,7 @@
     body {
       background: url('ezzzzz.png') no-repeat center center fixed, #181818;
       background-size: cover;
-    }  
+    }
     .game-tab-content { display:none; }
     .game-tab-content.active { display:block; }
   </style>
@@ -45,36 +45,11 @@
     </header>
     <div class="game-tab-content active" id="tierlist-kitpvp">
       <div class="tier-container">
-        <div class="tier tier-1">
-          <div class="tier-header">
-            <span class="tier-label">Tier 1</span>
-          </div>
-          <div class="players-list" id="kitpvp-tier1"></div>
-        </div>
-        <div class="tier tier-2">
-          <div class="tier-header">
-            <span class="tier-label">Tier 2</span>
-          </div>
-          <div class="players-list" id="kitpvp-tier2"></div>
-        </div>
-        <div class="tier tier-3">
-          <div class="tier-header">
-            <span class="tier-label">Tier 3</span>
-          </div>
-          <div class="players-list" id="kitpvp-tier3"></div>
-        </div>
-        <div class="tier tier-4">
-          <div class="tier-header">
-            <span class="tier-label">Tier 4</span>
-          </div>
-          <div class="players-list" id="kitpvp-tier4"></div>
-        </div>
-        <div class="tier tier-5">
-          <div class="tier-header">
-            <span class="tier-label">Tier 5</span>
-          </div>
-          <div class="players-list" id="kitpvp-tier5"></div>
-        </div>
+        <div class="tier tier-1"><div class="tier-header"><span class="tier-label">Tier 1</span></div><div class="players-list" id="kitpvp-tier1"></div></div>
+        <div class="tier tier-2"><div class="tier-header"><span class="tier-label">Tier 2</span></div><div class="players-list" id="kitpvp-tier2"></div></div>
+        <div class="tier tier-3"><div class="tier-header"><span class="tier-label">Tier 3</span></div><div class="players-list" id="kitpvp-tier3"></div></div>
+        <div class="tier tier-4"><div class="tier-header"><span class="tier-label">Tier 4</span></div><div class="players-list" id="kitpvp-tier4"></div></div>
+        <div class="tier tier-5"><div class="tier-header"><span class="tier-label">Tier 5</span></div><div class="players-list" id="kitpvp-tier5"></div></div>
       </div>
       <div id="kitpvp-form" class="admin-only-form" style="display:none;">
         <select id="kitpvp-player-type" class="player-type-select">
@@ -92,39 +67,13 @@
         <button id="kitpvp-add-btn" onclick="addPlayer('kitpvp')">Добавить</button>
       </div>
     </div>
-
     <div class="game-tab-content" id="tierlist-nezerpot">
       <div class="tier-container">
-        <div class="tier tier-1">
-          <div class="tier-header">
-            <span class="tier-label">Tier 1</span>
-          </div>
-          <div class="players-list" id="nezerpot-tier1"></div>
-        </div>
-        <div class="tier tier-2">
-          <div class="tier-header">
-            <span class="tier-label">Tier 2</span>
-          </div>
-          <div class="players-list" id="nezerpot-tier2"></div>
-        </div>
-        <div class="tier tier-3">
-          <div class="tier-header">
-            <span class="tier-label">Tier 3</span>
-          </div>
-          <div class="players-list" id="nezerpot-tier3"></div>
-        </div>
-        <div class="tier tier-4">
-          <div class="tier-header">
-            <span class="tier-label">Tier 4</span>
-          </div>
-          <div class="players-list" id="nezerpot-tier4"></div>
-        </div>
-        <div class="tier tier-5">
-          <div class="tier-header">
-            <span class="tier-label">Tier 5</span>
-          </div>
-          <div class="players-list" id="nezerpot-tier5"></div>
-        </div>
+        <div class="tier tier-1"><div class="tier-header"><span class="tier-label">Tier 1</span></div><div class="players-list" id="nezerpot-tier1"></div></div>
+        <div class="tier tier-2"><div class="tier-header"><span class="tier-label">Tier 2</span></div><div class="players-list" id="nezerpot-tier2"></div></div>
+        <div class="tier tier-3"><div class="tier-header"><span class="tier-label">Tier 3</span></div><div class="players-list" id="nezerpot-tier3"></div></div>
+        <div class="tier tier-4"><div class="tier-header"><span class="tier-label">Tier 4</span></div><div class="players-list" id="nezerpot-tier4"></div></div>
+        <div class="tier tier-5"><div class="tier-header"><span class="tier-label">Tier 5</span></div><div class="players-list" id="nezerpot-tier5"></div></div>
       </div>
       <div id="nezerpot-form" class="admin-only-form" style="display:none;">
         <select id="nezerpot-player-type" class="player-type-select">
@@ -144,11 +93,8 @@
     </div>
   </div>
 <script type="module">
-
-// --- FIREBASE SDK ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
+import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAXz5odCHUE3-guCR-a3KcxWYINK2fgZD4",
   authDomain: "ewtiers.firebaseapp.com",
@@ -161,15 +107,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// --- ADMIN AUTH ---
 const ADMIN_PASSWORD_HASH = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9";
 let isAdmin = false;
 if (localStorage.getItem('isAdmin') === '1') isAdmin = true;
 let currentTab = 'kitpvp';
+let playersKitpvpLast = [];
+let playersNezerpotLast = [];
 
 let draggedName = null, draggedFromTier = null, draggedType = null, draggedId = null;
 
-// --- UI ---
 function updateAddForms() {
   document.getElementById('kitpvp-form').style.display = isAdmin ? '' : 'none';
   document.getElementById('nezerpot-form').style.display = isAdmin ? '' : 'none';
@@ -187,30 +133,33 @@ function switchGameTab(tab) {
   document.getElementById(currentTab + '-btn').classList.remove('active');
   document.getElementById('tierlist-' + tab).classList.add('active');
   currentTab = tab;
-  // render через subscribe
+  if (tab === 'kitpvp') render('kitpvp', playersKitpvpLast);
+  else if (tab === 'nezerpot') render('nezerpot', playersNezerpotLast);
 }
+
 window.switchGameTab = switchGameTab;
 
-// --- FIRESTORE ---
-// Подписаться на игроков + слушать изменения
 function subscribePlayers(tab, callback) {
   onSnapshot(collection(db, tab), (snapshot) => {
-    let obj = {1:[],2:[],3:[],4:[],5:[]};
+    console.log('[firestore] subscribe snapshot for tab:', tab, 'size:', snapshot.size);
+    let obj = {"1":[], "2":[], "3":[], "4":[], "5":[]};
     snapshot.forEach(docSnap => {
       const d = docSnap.data();
-      if(obj[d.tier]) obj[d.tier].push({name:d.name, type:d.type, id:docSnap.id});
+      let t = (typeof d.tier === "string") ? d.tier : d.tier.toString();
+      obj[t] && obj[t].push({name:d.name, type:d.type, id:docSnap.id});
     });
-    callback(obj);
+    let playersByTier = [undefined, obj["1"], obj["2"], obj["3"], obj["4"], obj["5"]];
+    console.log('[firestore] result by tier', tab, playersByTier);
+    callback(playersByTier);
   });
 }
+
 async function addPlayerToBase(tab, name, tier, type) {
   await addDoc(collection(db, tab), { name, tier, type });
 }
 async function deletePlayerFromBase(tab, id) {
   await deleteDoc(doc(db, tab, id));
 }
-
-// --- РЕНДЕР ---
 function render(tab, playersTab) {
   for(let tier=1;tier<=5;tier++) {
     let pArr = playersTab[tier] || [];
@@ -227,8 +176,6 @@ function render(tab, playersTab) {
   disableDnDForGuests();
   document.body.classList.toggle('admin-mode', isAdmin);
 }
-
-// --- DND + удаление через Firebase ---
 function enableDnD(tab, playersTab) {
   let droppedInTier = false;
   document.querySelectorAll('.player').forEach(playerEl => {
@@ -311,8 +258,6 @@ function disableDnDForGuests() {
     document.body.ondrop = null;
   }
 }
-
-// --- добавление игрока ---
 window.addPlayer = function(tab) {
   if (!isAdmin) return;
   let name = document.getElementById(tab+'-player-name').value.trim();
@@ -322,8 +267,6 @@ window.addPlayer = function(tab) {
   addPlayerToBase(tab, name, tier, type);
   document.getElementById(tab+'-player-name').value = '';
 };
-
-// --- авторизация + логаут ---
 window.checkPassword = async function() {
   const pass = document.getElementById('auth-password').value;
   const hash = await hashPassword(pass);
@@ -365,15 +308,16 @@ document.addEventListener('keydown', function(e) {
     checkPassword();
   }
 });
-
-// --- subscribe ---
 document.addEventListener('DOMContentLoaded', function() {
   subscribePlayers('kitpvp', function(playersKitpvp) {
+    playersKitpvpLast = playersKitpvp;
     if (currentTab === 'kitpvp') render('kitpvp', playersKitpvp);
   });
   subscribePlayers('nezerpot', function(playersNezerpot) {
+    playersNezerpotLast = playersNezerpot;
     if (currentTab === 'nezerpot') render('nezerpot', playersNezerpot);
   });
+
   const address = document.getElementById('copy-address');
   if(address) {
     address.addEventListener('click', function() {
@@ -391,6 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
 </script>
 </body>
 </html>
