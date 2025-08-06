@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>EɴᴠʏWᴏʀʟᴅ-Tɪᴇʀs</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+  body {
+    background: url('ezzzzz.png') no-repeat center center fixed, #181818;
+    background-size: cover;
+  }  
+    .game-tab-content { display:none; }
+    .game-tab-content.active { display:block; }
+  </style>
+</head>
+<body>
+  <div class="top-left-info">
+    <span class="server-address" id="copy-address">play.envyworld.gg</span>
+  </div>
+  <div class="top-right-controls">
+    <span id="auth-indicator"><span class="dot"></span> Гость</span>
+    <button id="auth-btn" onclick="showAuthModal()">Войти</button>
+  </div>
+  <div id="auth-modal" class="modal" style="display:none">
+    <div class="modal-content">
+      <h2><span class="lock-ico">🔒</span>Авторизация</h2>
+      <input type="password" id="auth-password" placeholder="Пароль"/>
+      <button id="auth-enter-btn" onclick="checkPassword()">Войти</button>
+      <div id="auth-error" class="error-message"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <header>
+        <h1>
+        <img src="sword1.gif" alt="Незеритовый меч" style="height:1.3em;vertical-align:middle;margin-right:10px;">
+        Тир-лист игроков
+        <img src="sword.gif" alt="Алмазный меч" style="height:1.3em;vertical-align:middle;margin-left:10px;transform:scaleX(-1);">
+        </h1>
+      <div class="game-modes" style="display:flex;justify-content:center;gap:12px;">
+        <button id="kitpvp-btn" class="mode-btn active" onclick="switchGameTab('kitpvp')">KitPVP</button>
+        <button id="nezerpot-btn" class="mode-btn" onclick="switchGameTab('nezerpot')">NethPot</button>
+      </div>
+    </header>
+    <div class="game-tab-content active" id="tierlist-kitpvp">
+      <div class="tier-container">
+        <div class="tier tier-1">
+          <div class="tier-header">
+            <span class="tier-label">Tier 1</span>
+          </div>
+          <div class="players-list" id="kitpvp-tier1"></div>
+        </div>
+        <div class="tier tier-2">
+          <div class="tier-header">
+            <span class="tier-label">Tier 2</span>
+          </div>
+          <div class="players-list" id="kitpvp-tier2"></div>
+        </div>
+        <div class="tier tier-3">
+          <div class="tier-header">
+            <span class="tier-label">Tier 3</span>
+          </div>
+          <div class="players-list" id="kitpvp-tier3"></div>
+        </div>
+        <div class="tier tier-4">
+          <div class="tier-header">
+            <span class="tier-label">Tier 4</span>
+          </div>
+          <div class="players-list" id="kitpvp-tier4"></div>
+        </div>
+        <div class="tier tier-5">
+          <div class="tier-header">
+            <span class="tier-label">Tier 5</span>
+          </div>
+          <div class="players-list" id="kitpvp-tier5"></div>
+        </div>
+      </div>
+      <div id="kitpvp-form" class="admin-only-form" style="display:none;">
+        <select id="kitpvp-player-type" class="player-type-select">
+          <option value="high">High</option>
+          <option value="low">Low</option>
+        </select>
+        <input id="kitpvp-player-name" class="player-input" placeholder="Имя игрока"/>
+        <select id="kitpvp-player-tier" class="player-select">
+          <option value="1">Tier 1</option>
+          <option value="2">Tier 2</option>
+          <option value="3">Tier 3</option>
+          <option value="4">Tier 4</option>
+          <option value="5">Tier 5</option>
+        </select>
+        <button id="kitpvp-add-btn" onclick="addPlayer('kitpvp')">Добавить</button>
+      </div>
+    </div>
+
+    <div class="game-tab-content" id="tierlist-nezerpot">
+      <div class="tier-container">
+        <div class="tier tier-1">
+          <div class="tier-header">
+            <span class="tier-label">Tier 1</span>
+          </div>
+          <div class="players-list" id="nezerpot-tier1"></div>
+        </div>
+        <div class="tier tier-2">
+          <div class="tier-header">
+            <span class="tier-label">Tier 2</span>
+          </div>
+          <div class="players-list" id="nezerpot-tier2"></div>
+        </div>
+        <div class="tier tier-3">
+          <div class="tier-header">
+            <span class="tier-label">Tier 3</span>
+          </div>
+          <div class="players-list" id="nezerpot-tier3"></div>
+        </div>
+        <div class="tier tier-4">
+          <div class="tier-header">
+            <span class="tier-label">Tier 4</span>
+          </div>
+          <div class="players-list" id="nezerpot-tier4"></div>
+        </div>
+        <div class="tier tier-5">
+          <div class="tier-header">
+            <span class="tier-label">Tier 5</span>
+          </div>
+          <div class="players-list" id="nezerpot-tier5"></div>
+        </div>
+      </div>
+      <div id="nezerpot-form" class="admin-only-form" style="display:none;">
+        <select id="nezerpot-player-type" class="player-type-select">
+          <option value="high">High</option>
+          <option value="low">Low</option>
+        </select>
+        <input id="nezerpot-player-name" class="player-input" placeholder="Имя игрока"/>
+        <select id="nezerpot-player-tier" class="player-select">
+          <option value="1">Tier 1</option>
+          <option value="2">Tier 2</option>
+          <option value="3">Tier 3</option>
+          <option value="4">Tier 4</option>
+          <option value="5">Tier 5</option>
+        </select>
+        <button id="nezerpot-add-btn" onclick="addPlayer('nezerpot')">Добавить</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
