@@ -167,7 +167,7 @@
       <div id="auth-error" class="error-message"></div>
     </div>
   </div>
-
+  <div class="site-version">.version 0.1.4</div>
   <!-- INFO BUTTON & PANEL (ВНЕ container!) -->
   <div class="sidebar-info-btn" id="show-info-btn" title="Информация">!</div>
   <div class="sidebar-info-panel" id="info-panel">
@@ -204,9 +204,9 @@
   <div class="container">
     <header>
         <h1>
-        <img src="sword1.gif" alt="Незеритовый меч" style="height:1.3em;vertical-align:middle;margin-right:10px;">
+        <img src="sword.gif" alt="Незеритовый меч" style="height:1.3em;vertical-align:middle;margin-right:10px;">
         Тир-лист игроков
-        <img src="sword.gif" alt="Алмазный меч" style="height:1.3em;vertical-align:middle;margin-left:10px;transform:scaleX(-1);">
+        <img src="sword1.gif" alt="Алмазный меч" style="height:1.3em;vertical-align:middle;margin-left:10px;transform:scaleX(-1);">
         </h1>
       <div class="game-modes" style="display:flex;justify-content:center;gap:12px;">
         <button id="kitpvp-btn" class="mode-btn active" onclick="switchGameTab('kitpvp')">KitPVP</button>
@@ -215,9 +215,40 @@
     </header>
     <div class="game-tab-content active" id="tierlist-kitpvp">
       <div class="tier-container">
-        <div class="tier tier-1"><div class="tier-header"><span class="tier-label">Tier 1</span></div><div class="players-list" id="kitpvp-tier1"></div></div>
-        <div class="tier tier-2"><div class="tier-header"><span class="tier-label">Tier 2</span></div><div class="players-list" id="kitpvp-tier2"></div></div>
-        <div class="tier tier-3"><div class="tier-header"><span class="tier-label">Tier 3</span></div><div class="players-list" id="kitpvp-tier3"></div></div>
+        <div class="tier tier-1">
+          <div class="tier-header">
+            <span class="tier-label">
+              <svg class="cup-icon" width="22" height="22" viewBox="0 0 24 12">
+                <path fill="#FFD700" d="M18 6V5a3 3 0 0 0-6 0v1H6v2h1v3a7 7 0 0 0 14 0V8h1V6zM6 8h2V6h8v2h2v1H6zm7 2h-2v-1h2zm-1 9c-1.1 0-2-.9-2-2h4a2 2 0 0 1-2 2z"/>
+              </svg>
+              Tier 1
+            </span>
+          </div>
+          <div class="players-list" id="kitpvp-tier1"></div>
+        </div>
+        <div class="tier tier-2">
+          <div class="tier-header">
+            <span class="tier-label">
+              <svg class="cup-icon" width="22" height="22" viewBox="0 0 24 12">
+                <path fill="#C0C0C0" d="M18 6V5a3 3 0 0 0-6 0v1H6v2h1v3a7 7 0 0 0 14 0V8h1V6zM6 8h2V6h8v2h2v1H6zm7 2h-2v-1h2zm-1 9c-1.1 0-2-.9-2-2h4a2 2 0 0 1-2 2z"/>
+              </svg>
+              Tier 2
+            </span>
+          </div>
+          <div class="players-list" id="kitpvp-tier2"></div>
+        </div>
+        <div class="tier tier-3">
+          <div class="tier-header">
+            <span class="tier-label">
+              <svg class="cup-icon" width="22" height="22" viewBox="0 0 24 12">
+                <path fill="#cd7f32" d="M18 6V5a3 3 0 0 0-6 0v1H6v2h1v3a7 7 0 0 0 14 0V8h1V6zM6 8h2V6h8v2h2v1H6zm7 2h-2v-1h2zm-1 9c-1.1 0-2-.9-2-2h4a2 2 0 0 1-2 2z"/>
+              </svg>
+              Tier 3
+            </span>
+          </div>
+          <div class="players-list" id="kitpvp-tier3"></div>
+        </div>
+        
         <div class="tier tier-4"><div class="tier-header"><span class="tier-label">Tier 4</span></div><div class="players-list" id="kitpvp-tier4"></div></div>
         <div class="tier tier-5"><div class="tier-header"><span class="tier-label">Tier 5</span></div><div class="players-list" id="kitpvp-tier5"></div></div>
       </div>
