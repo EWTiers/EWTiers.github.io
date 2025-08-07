@@ -12,7 +12,6 @@
     }
     .game-tab-content { display:none; }
     .game-tab-content.active { display:block; }
-    /** INFO BUTTON + PANEL **/
     .sidebar-info-btn {
       position: fixed;
       top: 90px;
@@ -94,7 +93,6 @@
       background: linear-gradient(90deg, #ffb347 0%, #ff5e62 100%);
       color: #fff; border: 2px solid #ffb347;
     }
-    /* -------- Copyright & Счётчик -------- */
     .copyright {
       position: fixed;
       bottom: 20px;
@@ -168,7 +166,6 @@
     </div>
   </div>
   <div class="site-version">.version 0.1.4</div>
-  <!-- INFO BUTTON & PANEL (ВНЕ container!) -->
   <div class="sidebar-info-btn" id="show-info-btn" title="Информация">!</div>
   <div class="sidebar-info-panel" id="info-panel">
     <div class="info-panel-content">
@@ -200,6 +197,7 @@
     <span class="visitor-icon">👁️</span>
     <span id="visitor-count">0</span>
   </div>
+
 
   <div class="container">
     <header>
@@ -308,6 +306,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+
 const ADMIN_PASSWORD_HASH = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9";
 let isAdmin = false;
 if (localStorage.getItem('isAdmin') === '1') isAdmin = true;
@@ -315,7 +314,9 @@ let currentTab = 'kitpvp';
 let playersKitpvpLast = [];
 let playersNezerpotLast = [];
 
+
 let draggedName = null, draggedFromTier = null, draggedType = null, draggedId = null;
+
 
 function updateAddForms() {
   document.getElementById('kitpvp-form').style.display = isAdmin ? '' : 'none';
@@ -339,6 +340,7 @@ function switchGameTab(tab) {
 }
 window.switchGameTab = switchGameTab;
 
+
 function subscribePlayers(tab, callback) {
   onSnapshot(collection(db, tab), (snapshot) => {
     let obj = {"1":[], "2":[], "3":[], "4":[], "5":[]};
@@ -360,7 +362,6 @@ async function deletePlayerFromBase(tab, id) {
 function render(tab, playersTab) {
   for(let tier=1;tier<=5;tier++) {
     let pArr = playersTab[tier] || [];
-    // СОРТИРОВКА: Сначала HT, потом LT, потом по имени
     let sortedArr = (pArr || []).filter(p => p && p.name).sort((a, b) => {
       if (a.type !== b.type) return a.type === 'high' ? -1 : 1;
       return a.name.localeCompare(b.name, 'ru', {sensitivity: 'base'});
@@ -527,7 +528,6 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => address.textContent = "play.envyworld.gg", 1200);
     });
   }
-  // Инфо-панель
   const infoBtn = document.getElementById('show-info-btn');
   const infoPanel = document.getElementById('info-panel');
   const closeBtn = document.getElementById('close-info-btn');
@@ -542,7 +542,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-  // Счетчик посетителей
   function initVisitorCounter() {
     const hasVisited = sessionStorage.getItem('hasVisited');
     if (!hasVisited) {
