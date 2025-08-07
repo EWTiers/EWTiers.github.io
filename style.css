@@ -4,81 +4,145 @@ body {
   color: #ffffff;
   min-height: 100vh;
 }
-.container { max-width: 1000px; margin: 0 auto; padding: 30px; }
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px;
+}
 h1 {
   text-align: center;
   font-size: 2.3rem;
   margin-bottom: 25px;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #aeb3c6; /* обычный светло-серый */
+  font-weight: 700;
+  /* УБРАТЬ всё, что связано с background-clip, градиентом и т.д. */
 }
-.tier-container { margin: 0 auto; max-width: 700px; }
+.tier-container {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  max-width: 1400px;
+  margin: 14px auto 0 auto; /* <-- БОЛЬШЕ top margin = ниже отступ */
+}
+
 .tier {
   position: relative;
-  min-height: 100px;
+  width: 240px;
   box-sizing: border-box;
-  border: 2.5px solid #ffd700; /* или другой цвет для других tier */
-  border-radius: 12px;
-  background: #22304a; /* добавь фон для видимости */
+  border-radius: 14px;
+  background: #0d121b;
   margin-bottom: 22px;
-  margin-top: 32px;
-  padding: 18px 18px 18px 18px; /* добавь паддинг для воздуха */
+  margin-left: 8px;
+  margin-right: 8px;
+  padding: 0 0 18px 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: stretch;
 }
+.tier-head {
+  background: #2a3752;
+  border-radius: 12px 12px 0 0;
+  padding: 20px 0 9px 0;        /* стало меньше! */
+  text-align: center;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1.50rem;
+  color: #fff;
+  border-bottom: 2px solid #55596c70;
+  box-shadow: 0 2px 12px #1e253615;
+  margin-bottom: 0;             /* убрали */
+}
+/* Если используешь tier-header вместо tier-head — применяй этот блок к tier-header */
 .tier-header {
-  /* убери absolute */
   position: static;
   z-index: 2;
-  padding: 0 0 10px 0;
+  padding: 0 0 10px 0;   /* уменьшено */
   background: transparent;
   pointer-events: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 0;
 }
+.tier-label {
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+/* Список игроков в тире */
 .players-list {
-  /* убери absolute и top/bottom/left/right */
-  width: 100%;
-  min-height: 40px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  align-items: flex-start;
-  padding: 0;
-  box-sizing: border-box;
-  background: transparent;
-  z-index: 1;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  padding: 8px 20px 0 20px;   /* было 28px, теперь 8px! */
+  margin: 0;
 }
-.tier-1 { border-color:#ffd700; }
-.tier-2 { border-color:#c0c0c0; }
-.tier-3 { border-color:#cd7f32; }
-.tier-4 { border-color:#4ecdc4; }
-.tier-5 { border-color:#ff6b6b; }
-.tier-header { display:flex; justify-content:space-between; align-items:center; font-size:1.1rem; margin-bottom:12px; }
-.players-list { display: flex; flex-wrap: wrap; gap:15px; min-height:30px;}
 .player {
-  position: relative;
-  z-index: 10;
-  cursor: pointer;
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  color:#fff; padding: 7px 14px; border-radius: 18px;
-  font-size: 1.06rem; transition: box-shadow .19s, background .2s, transform 0.18s;
+  border-radius: 12px;
+  background: #24304a;
+  color: #fff;
+  padding: 13px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 2px 9px #09106908;
+  border: none;
+  transition: box-shadow 0.16s, background 0.13s, color 0.2s;
+  margin: 0;                  /* никаких margin между! */
+}
+.player.high-tier {
+  background: #394752;
+  color: #fff;
+}
+.player.low-tier {
+  background: #24304a;
+  color: #f6f8ff;
 }
 .player:hover {
-  transform: scale(1.11);
-  box-shadow: 0 4px 18px #667eea55;
-  z-index: 2;
+  box-shadow: 0 4px 16px #22304a28;
+  transform: scale(1.04);
+  cursor: pointer;
 }
 .player[draggable="true"] { cursor: grab; }
 .player[draggable="true"]:hover { cursor: grab !important; }
 .player.dragging { cursor: grabbing !important; }
-
-/* Показывать drag-over только у админа */
+/* Адаптив */
+@media (max-width: 1200px) {
+  .tier {
+    width: calc(25% - 15px);
+    /* min-height: 450px; - убрано! */
+  }
+  .tier-container { max-width: 1000px; }
+}
+@media (max-width: 900px) {
+  .tier {
+    width: calc(33.333% - 14px);
+    /* min-height: 400px; - убрано! */
+  }
+  .tier-container { max-width: 800px; gap: 15px; }
+}
+@media (max-width: 768px) {
+  .tier {
+    width: calc(50% - 10px);
+    /* min-height: 350px; - убрано! */
+  }
+  .tier-container { max-width: 600px; gap: 12px; }
+}
+@media (max-width: 480px) {
+  .tier {
+    width: 100%;
+    /* min-height: 300px; - убрано! */
+  }
+  .tier-container { gap: 10px; }
+  .container { padding: 20px 15px; }
+}
+/* Admin и прочие кнопки и панель управления — оставить как есть ниже */
 .admin-mode .tier.drag-over,
 .admin-mode .players-list:active,
 .admin-mode .tier .players-list:active {
@@ -86,7 +150,6 @@ h1 {
   filter: brightness(1.13);
   outline: 2.5px dashed #4ecdc4b6;
 }
-/* У гостя — никаких эффектов (перебиваем!) */
 .tier.drag-over,
 .players-list:active,
 .tier .players-list:active {
@@ -94,11 +157,10 @@ h1 {
   background: transparent !important;
   filter: none !important;
 }
-
 .mode-btn {
-  padding: 8px 18px;
-  border-radius: 18px;
-  margin: 0 3px;
+  padding: 10px 24px;
+  border-radius: 6px;
+  margin: 0 0px;
   border: none;
   cursor: pointer;
   color: #fff;
@@ -108,7 +170,6 @@ h1 {
   overflow: hidden;
   transition: background 0.3s, color 0.2s, box-shadow 0.2s;
 }
-
 .mode-btn.active {
   color: #fff;
   background: linear-gradient(270deg, #19aea7, #667eea, #19aea7);
@@ -117,20 +178,46 @@ h1 {
   box-shadow: 0 2px 16px #19aea755;
   font-weight: bold;
 }
-
 @keyframes gradientMove {
   0% {background-position: 0% 50%;}
   50% {background-position: 100% 50%;}
   100% {background-position: 0% 50%;}
 }
-
-.player-input, .player-select { font-size: 1.1em; margin: 0 10px; border-radius: 8px; padding: 6px 14px; }
-.top-right-controls { position: fixed; top: 25px; right: 40px; display: flex; align-items: center; gap: 12px; z-index: 1002;}
-.top-right-controls .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:7px; background:#ff6b6b; vertical-align: middle;}
+.player-input, .player-select {
+  font-size: 1.1em;
+  margin: 0 10px;
+  border-radius: 8px;
+  padding: 6px 14px;
+}
+.top-right-controls {
+  position: fixed;
+  top: 25px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1002;
+}
+.top-right-controls .dot {
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  margin-right:7px;
+  background:#ff6b6b;
+  vertical-align: middle;
+}
 #auth-btn {
   background: linear-gradient(90deg, #b37dff 0%, #667eea 100%);
-  color: #fff; font-weight: bold; border-radius: 10px; border: none; padding: 8px 22px;
-  font-size: 1.1rem; margin-left: 8px; cursor: pointer; box-shadow: 0 1px 8px #2228;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  padding: 8px 22px;
+  font-size: 1.1rem;
+  margin-left: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 8px #2228;
   transition: background 0.2s, transform 0.15s;
 }
 #auth-btn:hover {
@@ -138,7 +225,8 @@ h1 {
   transform: translateY(-2px) scale(1.06);
 }
 .modal {
-  display: flex; position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;
+  display: flex;
+  position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;
   background:rgba(0,0,0,0.82);align-items:center;justify-content:center;
 }
 .modal-content {
@@ -206,7 +294,11 @@ h1 {
   color: #221a2e;
   transform:scale(1.06);
 }
-.error-message { color: #ff6b6b; margin-top: 12px; font-size: 1em;}
+.error-message {
+  color: #ff6b6b;
+  margin-top: 12px;
+  font-size: 1em;
+}
 .admin-only-form {
   display: flex;
   justify-content: center;
@@ -272,16 +364,6 @@ h1 {
   box-shadow: 0 3px 18px #0efcc999;
   transform: translateY(-2px) scale(1.05);
 }
-.player.high-tier {
-  background: linear-gradient(90deg, #00e1ff 0%, #0072ff 100%);
-  color: #fff;
-  border: 2px solid #00e1ff;
-}
-.player.low-tier {
-  background: linear-gradient(90deg, #ffb347 0%, #ff5e62 100%);
-  color: #fff;
-  border: 2px solid #ffb347;
-}
 .player-type-select {
   font-size: 1.09rem;
   border-radius: 10px;
@@ -305,7 +387,6 @@ h1 {
   letter-spacing: 0.03em;
   user-select: text;
 }
-
 .server-address {
   background: linear-gradient(90deg, #b37dff 0%, #667eea 100%);
   border-radius: 12px;
@@ -375,36 +456,39 @@ h1 {
 }
 .sidebar-info-btn {
   position: fixed;
-  top: 95px;
-  left: 24px;
+  top: 500px !important;
+  left: 34px !important;
   z-index: 1200;
-  width: 38px; height: 38px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: #22304ae0;
-  color: #4ecdc4;
+  background: #4a2222e0 ;
+  color: #cd4e4e ;
   font-size: 1.8em;
   text-align: center;
   line-height: 38px;
-  box-shadow: 0 2px 10px #4ecdc455;
+  box-shadow: 0 2px 10px #cd4e4e55, 0 0 16px #ff2a2a55 !important;
   cursor: pointer;
   transition: background 0.15s, color 0.22s, box-shadow 0.18s;
+  border: 2.5px solid #ff2a2a !important;
 }
 .sidebar-info-btn:hover {
-  background: #4ecdc4;
-  color: #22304a;
-  box-shadow: 0 4px 15px #4ecdc488;
+  background: #b1187e !important;
+  color: #4a2222;
+  box-shadow: 0 4px 15px #cd4e5988, 0 0 16px #ff2a2a88;
 }
+
 .sidebar-info-panel {
   position: fixed;
-  top: 70px;
+  top: 250px !important;
   left: 18px;
   width: 340px;
   max-width: 90vw;
-  background: rgba(25,26,46,0.98);
+  background: rgba(46, 25, 25, 0.98);
   color: #fff;
   border-radius: 18px;
-  border: 2.5px solid #4ecdc4;
-  box-shadow: 0 8px 35px #162b4a70;
+  border: 2.5px solid #ff2a2a !important;
+  box-shadow: 0 0 16px #ff2a2a44; 
   padding: 22px 25px 16px 25px;
   z-index: 1300;
   display: none;
@@ -419,7 +503,9 @@ h1 {
   font-weight: bold;
   font-size: 1.18em;
   margin-bottom: 8px;
-  display: flex; justify-content: space-between; align-items:center;
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
 }
 .close-info-btn {
   background: none;
@@ -441,10 +527,144 @@ h1 {
   font-size: 0.95em;
 }
 .ht-demo {
-  background: linear-gradient(90deg, #00e1ff 0%, #0072ff 100%);
-  color: #fff; border: 2px solid #00e1ff;
+  background: #24304a;
+  color: #fff;
+  border: none;
 }
 .lt-demo {
-  background: linear-gradient(90deg, #ffb347 0%, #ff5e62 100%);
-  color: #fff; border: 2px solid #ffb347;
+  background: #e7e9ee;
+  color: #23273b;
+  border: none;
+}
+.cup {
+  font-size: 1.1em;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.cup.gold {
+  color: #FFD700;   /* Золотой */
+  filter: drop-shadow(0 0 2px #fff2);
+}
+.cup.silver {
+  color: #C0C0C0;   /* Серебряный */
+  filter: drop-shadow(0 0 2px #fff8);
+}
+.cup.bronze {
+  color: #cd7f32;   /* Бронзовый */
+  filter: drop-shadow(0 0 2px #fff2);
+}
+.cup-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-bottom: 2px;
+}
+.tier-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.game-modes {
+  margin-top: -7px;      /* или больше в минус, чтобы "поднять" блок */
+}
+.tier {
+  position: relative;
+  width: 240px;
+  box-sizing: border-box;
+  border-radius: 14px;
+  background: #0d121b;
+  margin-bottom: 22px;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding: 0 0 18px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: none !important;        /* Только это! */
+  overflow: visible;
+  z-index: 1;
+}
+/* ------- Переливающийся градиентный бордер --------- */
+.tier:before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 13px;
+  z-index: 2;
+  background: linear-gradient(120deg,#ffd700,#ffe800,#faffad,#ffd700,#ffe800,#ffd700,#fff894);
+  background-size: 300% 300%;
+  animation: border-flow-gold 4s linear infinite;
+  filter: brightness(1.14) blur(0.18px);
+}
+.tier-1:before {
+  background: linear-gradient(120deg,#ffd700,#ffe800,#faffad,#ffd700,#ffe800,#ffd700,#fff894);
+  animation: border-flow-gold 4s linear infinite;
+}
+.tier-2:before {
+  background: linear-gradient(120deg,#c0c0c0,#e6e6e6,#c0c0c0,#bbbbee,#e6e6e6,#c0c0c0);
+  animation: border-flow-silver 3.2s linear infinite;
+}
+.tier-3:before {
+  background: linear-gradient(120deg,#cd7f32,#ffe9cc,#db8b40,#cd7f32,#ffcf96,#cd7f32);
+  animation: border-flow-bronze 3.7s linear infinite;
+}
+.tier-4:before {
+  background: linear-gradient(120deg,#4ecdc4,#42e9fa,#4ecdc4,#42face,#46deed,#4ecdc4);
+  animation: border-flow-t4 2.6s linear infinite;
+}
+.tier-5:before {
+  background: linear-gradient(120deg,#ff6b6b,#fff2f2,#ffdada,#ff6b6b,#fff0f0,#ff6b6b);
+  animation: border-flow-t5 2.8s linear infinite;
+}
+.tier:after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  inset: 2px;
+  border-radius: 11px;
+  background: #0d121b;
+}
+.tier .tier-header,
+.tier .players-list {
+  position: relative;
+  z-index: 3;
+}
+
+/* ****** АНИМАЦИИ ****** */
+@keyframes border-flow-gold   { 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
+@keyframes border-flow-silver { 0%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes border-flow-bronze { 0%{background-position:0% 100%} 100%{background-position:100% 0%} }
+@keyframes border-flow-t4     { 0%{background-position:50% 0%} 100%{background-position:50% 100%} }
+@keyframes border-flow-t5     { 0%{background-position:0% 0%} 100%{background-position:100% 100%} }
+#auth-btn {
+  background: linear-gradient(90deg, #bdbdbd 0%, #5c5c5c 100%);
+  color: #fff;
+  font-weight: bold;
+  border-radius: 14px;
+  border: none;
+  padding: 6px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 14px #0002;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.02em;
+}
+
+#auth-btn:hover {
+  background: linear-gradient(90deg, #ececec 0%, #757575 100%);
+  color: #222;
+  transform: scale(1.05);
+}
+.site-version {
+  position: fixed;
+  top: 4px;
+  right: 12px;
+  z-index: 2000;
+  font-size: 0.72rem;    /* очень маленький шрифт */
+  color: #bbbbbb;         /* светло-серый, можно другой */
+  opacity: 0.7;           /* полупрозрачный, если нужно */
+  letter-spacing: 0.1em;
+  pointer-events: none;   /* чтобы не мешал кликам под ним */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
