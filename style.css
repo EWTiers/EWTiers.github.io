@@ -13,9 +13,8 @@ h1 {
   text-align: center;
   font-size: 2.3rem;
   margin-bottom: 25px;
-  color: #aeb3c6; /* обычный светло-серый */
+  color: #aeb3c6;
   font-weight: 700;
-  /* УБРАТЬ всё, что связано с background-clip, градиентом и т.д. */
 }
 .tier-container {
   display: flex;
@@ -25,8 +24,9 @@ h1 {
   flex-wrap: wrap;
   padding-top: 10px;
   max-width: 1400px;
-  margin: 14px auto 0 auto; /* <-- БОЛЬШЕ top margin = ниже отступ */
+  margin: 14px auto 0 auto;
 }
+
 
 .tier {
   position: relative;
@@ -45,7 +45,7 @@ h1 {
 .tier-head {
   background: #2a3752;
   border-radius: 12px 12px 0 0;
-  padding: 20px 0 9px 0;        /* стало меньше! */
+  padding: 20px 0 9px 0;
   text-align: center;
   font-family: inherit;
   font-weight: 700;
@@ -53,13 +53,12 @@ h1 {
   color: #fff;
   border-bottom: 2px solid #55596c70;
   box-shadow: 0 2px 12px #1e253615;
-  margin-bottom: 0;             /* убрали */
+  margin-bottom: 0;
 }
-/* Если используешь tier-header вместо tier-head — применяй этот блок к tier-header */
 .tier-header {
   position: static;
   z-index: 2;
-  padding: 0 0 10px 0;   /* уменьшено */
+  padding: 0 0 10px 0;
   background: transparent;
   pointer-events: none;
   display: flex;
@@ -74,13 +73,12 @@ h1 {
   display: inline-block;
   letter-spacing: 0.5px;
 }
-/* Список игроков в тире */
 .players-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: stretch;
-  padding: 8px 20px 0 20px;   /* было 28px, теперь 8px! */
+  padding: 8px 20px 0 20px;
   margin: 0;
 }
 .player {
@@ -94,7 +92,7 @@ h1 {
   box-shadow: 0 2px 9px #09106908;
   border: none;
   transition: box-shadow 0.16s, background 0.13s, color 0.2s;
-  margin: 0;                  /* никаких margin между! */
+  margin: 0;
 }
 .player.high-tier {
   background: #394752;
@@ -112,37 +110,31 @@ h1 {
 .player[draggable="true"] { cursor: grab; }
 .player[draggable="true"]:hover { cursor: grab !important; }
 .player.dragging { cursor: grabbing !important; }
-/* Адаптив */
 @media (max-width: 1200px) {
   .tier {
     width: calc(25% - 15px);
-    /* min-height: 450px; - убрано! */
   }
   .tier-container { max-width: 1000px; }
 }
 @media (max-width: 900px) {
   .tier {
     width: calc(33.333% - 14px);
-    /* min-height: 400px; - убрано! */
   }
   .tier-container { max-width: 800px; gap: 15px; }
 }
 @media (max-width: 768px) {
   .tier {
     width: calc(50% - 10px);
-    /* min-height: 350px; - убрано! */
   }
   .tier-container { max-width: 600px; gap: 12px; }
 }
 @media (max-width: 480px) {
   .tier {
     width: 100%;
-    /* min-height: 300px; - убрано! */
   }
   .tier-container { gap: 10px; }
   .container { padding: 20px 15px; }
 }
-/* Admin и прочие кнопки и панель управления — оставить как есть ниже */
 .admin-mode .tier.drag-over,
 .admin-mode .players-list:active,
 .admin-mode .tier .players-list:active {
@@ -478,6 +470,7 @@ h1 {
   box-shadow: 0 4px 15px #cd4e5988, 0 0 16px #ff2a2a88;
 }
 
+
 .sidebar-info-panel {
   position: fixed;
   top: 250px !important;
@@ -542,15 +535,15 @@ h1 {
   vertical-align: middle;
 }
 .cup.gold {
-  color: #FFD700;   /* Золотой */
+  color: #FFD700;
   filter: drop-shadow(0 0 2px #fff2);
 }
 .cup.silver {
-  color: #C0C0C0;   /* Серебряный */
+  color: #C0C0C0;
   filter: drop-shadow(0 0 2px #fff8);
 }
 .cup.bronze {
-  color: #cd7f32;   /* Бронзовый */
+  color: #cd7f32;
   filter: drop-shadow(0 0 2px #fff2);
 }
 .cup-icon {
@@ -565,7 +558,7 @@ h1 {
   font-weight: bold;
 }
 .game-modes {
-  margin-top: -7px;      /* или больше в минус, чтобы "поднять" блок */
+  margin-top: -7px;
 }
 .tier {
   position: relative;
@@ -580,11 +573,10 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  border: none !important;        /* Только это! */
+  border: none !important;
   overflow: visible;
   z-index: 1;
 }
-/* ------- Переливающийся градиентный бордер --------- */
 .tier:before {
   content: '';
   pointer-events: none;
@@ -631,7 +623,7 @@ h1 {
   z-index: 3;
 }
 
-/* ****** АНИМАЦИИ ****** */
+
 @keyframes border-flow-gold   { 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
 @keyframes border-flow-silver { 0%{background-position:100% 50%} 100%{background-position:0% 50%} }
 @keyframes border-flow-bronze { 0%{background-position:0% 100%} 100%{background-position:100% 0%} }
@@ -651,6 +643,7 @@ h1 {
   letter-spacing: 0.02em;
 }
 
+
 #auth-btn:hover {
   background: linear-gradient(90deg, #ececec 0%, #757575 100%);
   color: #222;
@@ -661,10 +654,10 @@ h1 {
   top: 4px;
   right: 12px;
   z-index: 2000;
-  font-size: 0.72rem;    /* очень маленький шрифт */
-  color: #bbbbbb;         /* светло-серый, можно другой */
-  opacity: 0.7;           /* полупрозрачный, если нужно */
+  font-size: 0.72rem;
+  color: #bbbbbb;
+  opacity: 0.7;
   letter-spacing: 0.1em;
-  pointer-events: none;   /* чтобы не мешал кликам под ним */
+  pointer-events: none;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
